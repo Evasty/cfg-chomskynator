@@ -1,0 +1,11 @@
+#terminales
+a,b,c,d,e
+
+#no-terminales
+A,B,C,D,E,S
+
+#relations
+A -> BC
+B -> bC 
+C -> #|c
+D -> ADBC
