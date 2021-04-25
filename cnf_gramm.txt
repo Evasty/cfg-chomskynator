@@ -3,13 +3,13 @@ a,b,c,d,e
 #non-terminals
 A,B,D,D_0,D_1,a_f,b_f,c_f,d_f,e_f
 #relations
-A ->BC|Bc_f|b_fC|b_fc_f
-B ->b_fc_f|b_fC
-D ->BD_0|b_fD_0|AD_0
-D_0 ->DD_1|Db_f|DB
-D_1 ->BC|Bc_f|b_fC|b_fc_f
-a_f ->a
-b_f ->b
-c_f ->c
-d_f ->d
-e_f ->e
+A -> B.c_f | b_f.C | b_f.c_f | B.C
+B -> b_f.c_f | b_f.C
+D -> A.D_0 | B.D_0 | b_f.D_0
+D_0 -> D.b_f | D.D_1 | D.B
+D_1 -> B.c_f | b_f.C | b_f.c_f | B.C
+a_f -> a
+b_f -> b
+c_f -> c
+d_f -> d
+e_f -> e

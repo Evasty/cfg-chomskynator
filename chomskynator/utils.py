@@ -16,6 +16,7 @@ def list2fileA(list,path):
 def list2fileW(list,path):
     f = open(path,'w')
     for x in list:
+        #print(x)
         f.write(f'{x}\n')
     f.close()
 

@@ -40,7 +40,7 @@ def grammarSaver():
     out.append('#non-terminals')
     out.append(','. join( sorted(o_relations.keys())))
     out.append('#relations')
-    out.extend(map(lambda x: f'{x} ->{f"|".join(o_relations[x])}', sorted(o_relations )) )
+    out.extend(map(lambda x: f'{x} -> {f" | ".join(o_relations[x])}', sorted(o_relations )) )
     utils.list2fileW(out,'cnf_gramm.txt')
 
 def printer(msg='',j='rel'):
@@ -149,11 +149,11 @@ def dualiNator():
 
 #input grammar ONLY single char symbols required
 def separator(prefix , l , dicc ):
-    print(l)
-    o_relations[prefix].add(f'{finisher(l[0])}{prefix}_0')
+    #print(l)
+    o_relations[prefix].add(f'{finisher(l[0])}.{prefix}_0')
     for i,j in enumerate(l[1:-2]): # this go 1 by 1
-        o_relations[f'{prefix}_{i}'].add(f'{finisher(j)}{prefix}_{i+1}')
-    o_relations[f'{prefix}_{len(l)-3}'].add(f'{finisher(l[-2:])}')
+        o_relations[f'{prefix}_{i}'].add(f'{finisher(j)}.{prefix}_{i+1}')
+    o_relations[f'{prefix}_{len(l)-3}'].add(f'{finisher(l[-2])}.{finisher(l[-1])}')
 
 def finisher(s):
     for i in terS:
@@ -166,8 +166,8 @@ def grammarChomskynator():
     #find adequate rh rules w len=2 to chomskynate
     for k in relations:
         if len(relations[k])>0:
-            for h in map( lambda x : rhrFixer(k,x) if (len(x) == 2) else False, relations[k]):
-                h # weird lambda magic thing happening somewhere here so much fun lols
+            deque( map( lambda x : rhrFixer(k,x) if (len(x) == 2) else False, relations[k]),0)
+            # weird lambda magic thing happening somewhere here so much fun lols
                 
             
     
@@ -175,7 +175,7 @@ def grammarChomskynator():
 def rhrFixer(lh,rh):
     #replace terminal w equivalent non-termial
     rhr = f'{rh[0]}_f' if rh[0] in terS else rh[0]
-    rhr = f'{rhr}{rh[1]}_f' if rh[1] in terS else f'{rhr}{rh[1]}'
+    rhr = f'{rhr}.{rh[1]}_f' if rh[1] in terS else f'{rhr}.{rh[1]}'
     #transfer CNF rule
     return o_relations[lh].add(rhr) #this is so weird but so nice lol
 
