@@ -1,0 +1,15 @@
+#blank lines/lines starting with '#' will be ignored, format as expected by chomskynator
+
+#terminal symbols are the first line, comma separated values without spaces are expected (no inp sanitizing done), 
+a,b,c,d,e
+
+#non-terminal symbols are the second line, comma separated values without spaces are expected (no inp sanitizing done), 
+A,B,C,D,E,S
+
+# relations are the rest of the lines, 
+# one line per relation expected and spaces are stripped
+# multiple transitions should be done with '|'; # means epsilon transition
+A -> BC
+B -> bC 
+C -> #|c
+D -> ADBC
